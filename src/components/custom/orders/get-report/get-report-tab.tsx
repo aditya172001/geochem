@@ -22,12 +22,12 @@ export default function GetReportTab() {
     async function fetchData() {
       try {
         setSamples(await getAllSamplesForReport());
+        setIsLoading(false);
       } catch (error) {
         console.log("error in fetching report data:", error);
       }
     }
     fetchData();
-    setIsLoading(false);
   }, [setSamples, setIsLoading]);
 
   return (

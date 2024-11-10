@@ -21,9 +21,9 @@ export default function UpdateTestResultTab() {
   useEffect(() => {
     async function fetchData() {
       setSamples(await getAllSamplesForTesting());
+      setIsLoading(false);
     }
     fetchData();
-    setIsLoading(false);
   }, [setSamples, setIsLoading]);
 
   return (

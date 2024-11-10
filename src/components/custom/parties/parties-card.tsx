@@ -15,9 +15,9 @@ export default function PartyCard() {
   useEffect(() => {
     async function fetchData() {
       setData(await getAllPartiesWithBranches());
+      setIsLoading(false);
     }
     fetchData();
-    setIsLoading(false);
   }, [setData]);
 
   return (

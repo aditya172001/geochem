@@ -21,9 +21,9 @@ export default function SpecLimitTab() {
   useEffect(() => {
     async function fetchData() {
       setData(await getAllSpecLimits());
+      setIsLoading(false);
     }
     fetchData();
-    setIsLoading(false);
   }, [setData]);
 
   return (

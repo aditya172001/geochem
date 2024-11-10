@@ -32,9 +32,9 @@ export default function ProcessSampleTab() {
       setSamples(await getAllSamplesForProcessing());
       setMasterSpecifications(await getAllSpecifications());
       setMasterTests(await getAllTests());
+      setIsLoading(false);
     }
     fetchData();
-    setIsLoading(false);
   }, [setSamples, setMasterSpecifications, setMasterTests, setIsLoading]);
 
   return (

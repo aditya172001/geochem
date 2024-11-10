@@ -21,9 +21,9 @@ export default function SampleTab() {
   useEffect(() => {
     async function fetchData() {
       setData(await getAllMasterSamples());
+      setIsLoading(false);
     }
     fetchData();
-    setIsLoading(false);
   }, [setData]);
 
   return (

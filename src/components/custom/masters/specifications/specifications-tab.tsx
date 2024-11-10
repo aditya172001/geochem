@@ -21,9 +21,9 @@ export default function SpecificationTab() {
   useEffect(() => {
     async function fetchData() {
       setData(await getAllSpecifications());
+      setIsLoading(false);
     }
     fetchData();
-    setIsLoading(false);
   }, [setData]);
 
   return (
