@@ -26,7 +26,7 @@ export default function GetReportTab() {
       }
     }
     fetchData();
-  }, []);
+  }, [setSamples]);
 
   return (
     <Card>

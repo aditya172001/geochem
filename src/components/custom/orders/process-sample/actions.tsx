@@ -81,7 +81,7 @@ export async function processSamples(
       })
     );
 
-    const updatedSample = await prisma.sample.update({
+    await prisma.sample.update({
       where: { id: data.id },
       data: {
         description: data.description, // Example field update

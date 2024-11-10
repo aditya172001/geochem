@@ -1,9 +1,15 @@
 "use client";
 
-import { TabOptions } from "@/src/app/orders/page";
 import { Tabs, TabsList, TabsTrigger } from "@/src/components/ui/tabs";
 import { ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+enum TabOptions {
+  preEntry = "preEntry",
+  processSample = "processSample",
+  updateTestResult = "updateTestResult",
+  getReport = "getReport",
+}
 
 export function SelectOrderPageTab({ children }: { children: ReactNode }) {
   const router = useRouter();

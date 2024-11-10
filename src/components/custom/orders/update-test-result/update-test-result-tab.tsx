@@ -13,8 +13,6 @@ import { samplesForTestingState } from "@/src/store/atoms";
 import { useRecoilState } from "recoil";
 import { useEffect } from "react";
 import { getAllSamplesForTesting } from "./actions";
-import { PdfReport } from "../../pdf-report";
-import { GetAllSamplesForReportType } from "../get-report/actions";
 
 export default function UpdateTestResultTab() {
   const [samples, setSamples] = useRecoilState(samplesForTestingState);

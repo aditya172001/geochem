@@ -66,7 +66,7 @@ export function AddMasterSample() {
         <DialogHeader>
           <DialogTitle>Add New Samples</DialogTitle>
           <DialogDescription className="sr-only">
-            Add new samples. Click save or cancel when you're done.
+            Add new samples. Click save or cancel when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 ">

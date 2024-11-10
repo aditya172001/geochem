@@ -21,7 +21,7 @@ export default function SpecLimitTab() {
       setData(await getAllSpecLimits());
     }
     fetchData();
-  }, []);
+  }, [setData]);
 
   return (
     <Card>

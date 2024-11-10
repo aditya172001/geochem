@@ -39,6 +39,7 @@ export function EditMasterSpecification({
         )
       );
     } catch (err) {
+      console.log("error from edit master specficiation:", err);
       // setError("Failed to update the specification.");
     } finally {
     }

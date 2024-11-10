@@ -60,7 +60,7 @@ export async function addPackage(packageData: PackageType) {
     );
 
     //create package and nested samples
-    const packageData = await prisma.package.create({
+    await prisma.package.create({
       data: {
         description,
         shippingDate: shippingDate || "update after validation",

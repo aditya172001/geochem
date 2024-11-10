@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Download } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { PdfReport } from "../../pdf-report";
 import { GetAllSamplesForReportType } from "./actions";
 
@@ -50,7 +50,7 @@ export const columns: ColumnDef<GetAllSamplesForReportType>[] = [
   {
     id: "download-pdf",
     accessorKey: "ref-pdf",
-    header: ({ column }) => <div className="text-right">Final Pdf</div>,
+    header: () => <div className="text-right">Final Pdf</div>,
     cell: ({ row }) => {
       const sample = row.original;
       return (

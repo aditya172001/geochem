@@ -1,9 +1,15 @@
 "use client";
 
-import { TabOptions } from "@/src/app/masters/page";
 import { Tabs, TabsList, TabsTrigger } from "@/src/components/ui/tabs";
 import { ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+enum TabOptions {
+  sample = "sample",
+  test = "test",
+  specification = "specification",
+  specificationLimit = "specificationLimit",
+}
 
 export function SelectMasterPageTab({ children }: { children: ReactNode }) {
   const router = useRouter();

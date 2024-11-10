@@ -1,12 +1,4 @@
-import Link from "next/link";
 import PartyCard from "@/src/components/custom/parties/parties-card";
-
-export enum TabOptions {
-  sample = "sample",
-  test = "test",
-  specification = "specification",
-  specificationLimit = "specificationLimit",
-}
 
 export default function Parites() {
   return (

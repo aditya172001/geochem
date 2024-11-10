@@ -39,6 +39,7 @@ export function EditMasterSpecLimit({ specLimit }: { specLimit: SpecLimit }) {
         )
       );
     } catch (err) {
+      console.log("error from editmaster spec limit:", err);
       // setError("Failed to update the sample.");
     } finally {
       // setLoading(false);

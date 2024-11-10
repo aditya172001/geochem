@@ -29,6 +29,7 @@ export function EditMasterTest({ test }: { test: Test }) {
         )
       );
     } catch (err) {
+      console.log("error from edit master test:", err);
     } finally {
     }
   };
