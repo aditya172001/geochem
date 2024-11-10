@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Link from "next/link";
 import "./globals.css";
+import { NavBar } from "@/src/components/custom/navbar";
+import { BeakerIcon } from "lucide-react";
+import { RecoilContextProvider } from "@/src/components/custom/recoil-context-provider";
+import { Toaster } from "../components/ui/sonner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,9 +31,38 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
-        {children}
+        <RecoilContextProvider>
+          <header className="px-4 lg:px-6 h-14 flex items-center w-full border-b bg-customBlue2 text-white">
+            <Link className="flex items-center justify-center mr-2" href="/">
+              <BeakerIcon className="h-6 w-6 mr-2" />
+              <span className="font-bold">GeoChem</span>
+            </Link>
+            <NavBar />
+          </header>
+          <Toaster />
+          {children}
+        </RecoilContextProvider>
+        <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-customBlue2">
+          <p className="text-xs text-gray-400 dark:text-gray-400">
+            © 2024 GeoChem. All rights reserved.
+          </p>
+          <nav className="sm:ml-auto flex gap-4 sm:gap-6 text-white">
+            <Link
+              className="text-xs hover:underline underline-offset-4"
+              href="#"
+            >
+              Terms of Service
+            </Link>
+            <Link
+              className="text-xs hover:underline underline-offset-4 "
+              href="#"
+            >
+              Privacy
+            </Link>
+          </nav>
+        </footer>
       </body>
     </html>
   );

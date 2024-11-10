@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String  @id @default(uuid())
+  email String  @unique
+  name  String? @unique
+  role  Role    @default(USER)
+}
+
+model Party {
+  id       String   @id @default(uuid())
+  name     String   @unique
+  branches Branch[]
+}
+
+model Branch {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  address  String
+  party    Party     @relation(fields: [partyId], references: [id])
+  partyId  String
+  packages Package[]
+}
+
+model MasterSample {
+  id                      String               @id @default(uuid())
+  name                    String               @unique
+  samples                 Sample[]
+  specificationsWithLimit SpecificationLimit[]
+}
+
+model MasterTest {
+  id                 String               @id @default(uuid())
+  name               String               @unique
+  tests              Test[]
+  SpecificationLimit SpecificationLimit[]
+}
+
+model MasterSpecification {
+  id                      String               @id @default(uuid())
+  name                    String               @unique
+  samples                 Sample[]
+  specificationsWithLimit SpecificationLimit[]
+}
+
+model Package {
+  id             String   @id @default(uuid())
+  description    String
+  shippingDate   DateTime
+  collectionDate DateTime
+  branch         Branch   @relation(fields: [branchId], references: [id])
+  branchId       String
+  samples        Sample[]
+}
+
+model Sample {
+  id                    String               @id @default(uuid())
+  description           String?
+  quantity              Float?
+  unit                  String?
+  batchNumber           String?
+  batchSizeQuantity     Float?
+  batchSizeUnit         String?
+  drawnByGeoChem        Boolean?
+  mfgName               String?
+  mfgLicenceNumber      String?
+  mfgDate               DateTime?
+  expDate               DateTime?
+  status                SampleStatus         @default(processing)
+  masterSample          MasterSample         @relation(fields: [masterSampleId], references: [id])
+  masterSampleId        String
+  tests                 Test[]
+  masterSpecification   MasterSpecification? @relation(fields: [masterSpecificationId], references: [id])
+  masterSpecificationId String?
+  package               Package              @relation(fields: [packageId], references: [id])
+  packageId             String
+  report                Report?
+}
+
+model Test {
+  id             String     @id @default(uuid())
+  resultQuantity Int?
+  masterTest     MasterTest @relation(fields: [masterTestId], references: [id])
+  masterTestId   String
+  sample         Sample     @relation(fields: [sampleId], references: [id])
+  sampleId       String
+}
+
+model Report {
+  id                 String    @id @default(uuid())
+  certificateNumber  String?
+  approvalNumber     String?
+  shippingBillNumber String?
+  chaNumber          String?
+  trNumber           String?
+  arNumber           String?
+  analysisStartDate  DateTime?
+  analysisEndDate    DateTime?
+  additionalComments String?
+  sample             Sample    @relation(fields: [sampleId], references: [id])
+  sampleId           String    @unique
+}
+
+model SpecificationLimit {
+  id                    String              @id @default(uuid())
+  description           String
+  minQuantity           Float
+  maxQuantity           Float
+  unit                  String
+  year                  Int
+  masterSample          MasterSample        @relation(fields: [masterSampleId], references: [id])
+  masterSampleId        String
+  masterTest            MasterTest          @relation(fields: [masterTestId], references: [id])
+  masterTestId          String
+  masterSpecification   MasterSpecification @relation(fields: [masterSpecificationId], references: [id])
+  masterSpecificationId String
+
+  @@unique([masterSampleId, masterTestId, masterSpecificationId])
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum SampleStatus {
+  onHold
+  processing
+  testing
+  completed
+}

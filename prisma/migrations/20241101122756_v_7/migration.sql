@@ -1,0 +1,2 @@
+-- RenameIndex
+ALTER INDEX "SpecificationLimit_masterSampleId_masterTestId_masterSpecificat" RENAME TO "SpecificationLimit_masterSampleId_masterTestId_masterSpecif_key";
