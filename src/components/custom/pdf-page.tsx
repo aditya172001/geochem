@@ -557,6 +557,9 @@ export const PageOfReport = ({
                   <Text style={{ width: 190 }}> {t.description}</Text>
                 </View>
               ))}
+              {pageNo === totalPages ? (
+                <Text>{sample.report?.additionalComments}</Text>
+              ) : null}
             </View>
             <View style={{ borderBottom: "1px dashed black" }} />
             <Text style={{ textAlign: "right", paddingVertical: 2 }}>

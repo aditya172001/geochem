@@ -24,6 +24,7 @@ import { useState } from "react";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { useSetRecoilState } from "recoil";
 import { samplesForTestingState } from "@/src/store/atoms";
+import { Textarea } from "@/src/components/ui/textarea";
 
 const createSeedTestingResult = (sample: GetAllSamplesForTestingType) => ({
   id: sample.id,
@@ -36,6 +37,7 @@ const createSeedTestingResult = (sample: GetAllSamplesForTestingType) => ({
   chaNo: "",
   trNo: "",
   arNo: "",
+  additionalComments: "",
   analysisStartDate: undefined as Date | undefined,
   analysisEndDate: undefined as Date | undefined,
   tests: sample.tests,
@@ -210,6 +212,20 @@ export function FillTestResult({
                   })}
                 </TableBody>
               </Table>
+            </div>
+            <div className="space-y-1.5 col-span-2">
+              <Label htmlFor="additional-comments">Additional Comments</Label>
+              <Textarea
+                id="additional-comments"
+                placeholder="Additional Comments"
+                value={sampleRow.additionalComments}
+                onChange={(e) =>
+                  setSampleRow((s) => ({
+                    ...s,
+                    additionalComments: e.target.value,
+                  }))
+                }
+              />
             </div>
           </div>
           <DialogFooter>

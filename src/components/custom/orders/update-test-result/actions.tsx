@@ -66,8 +66,6 @@ export async function updateTestingDetails(
   data: SeedSampleTestingType
 ): Promise<void> {
   try {
-    // console.log("data:", data);
-    // return;
     await prisma.$transaction(async (prisma) => {
       await prisma.sample.update({
         where: { id: data.id },
@@ -83,6 +81,7 @@ export async function updateTestingDetails(
               arNumber: data.arNo,
               analysisStartDate: data.analysisStartDate,
               analysisEndDate: data.analysisEndDate,
+              additionalComments: data.additionalComments,
             },
           },
         },

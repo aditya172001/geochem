@@ -11,8 +11,12 @@ import { LoadingIcon } from "./extras/loading-icon";
 import { ErrorIcon } from "./extras/error-icon";
 import { PageOfReport } from "./pdf-page";
 
-function calculateHeightOfTestDescription(s: string): number {
+function heightOfTestDescription(s: string): number {
   return (s.length / 30) * 11 + 5;
+}
+
+function heightOfAdditionalComment(s: string): number {
+  return (s.length / 90) * 11 + 5;
 }
 
 function getPagedTests(sample: GetAllSamplesForReportType): CustomTestType[][] {
@@ -21,7 +25,7 @@ function getPagedTests(sample: GetAllSamplesForReportType): CustomTestType[][] {
   let currentPage: CustomTestType[] = [];
   // const temp: CustomTestType[] = Array(15).fill(sample.tests).flat();
   for (const test of sample.tests) {
-    const testHeight = calculateHeightOfTestDescription(test.description || "");
+    const testHeight = heightOfTestDescription(test.description || "");
     if (currentHeight + testHeight < 235) {
       currentPage.push(test);
       currentHeight += testHeight;
@@ -32,6 +36,14 @@ function getPagedTests(sample: GetAllSamplesForReportType): CustomTestType[][] {
     }
   }
   if (currentPage.length > 0) pagedTests.push(currentPage);
+  // so that we can add additional comment on last page if there isn't enough space of prev page
+  if (
+    sample.report?.additionalComments?.length &&
+    heightOfAdditionalComment(sample.report.additionalComments) >
+      235 - currentHeight
+  ) {
+    pagedTests.push([]);
+  }
   return pagedTests;
 }
 

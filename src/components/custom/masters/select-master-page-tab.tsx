@@ -21,13 +21,20 @@ export function SelectMasterPageTab({ children }: { children: ReactNode }) {
 
   return (
     <Tabs value={stage} className="w-full" onValueChange={handlTabChange}>
-      <TabsList className="grid w-full grid-cols-4 mb-8">
-        <TabsTrigger value={TabOptions.sample}>Samples</TabsTrigger>
-        <TabsTrigger value={TabOptions.test}>Tests</TabsTrigger>
-        <TabsTrigger value={TabOptions.specification}>
+      <TabsList className="grid w-full grid-cols-4 mb-8 h-12">
+        <TabsTrigger value={TabOptions.sample} className="h-10 text-md">
+          Samples
+        </TabsTrigger>
+        <TabsTrigger value={TabOptions.test} className="h-10 text-md">
+          Tests
+        </TabsTrigger>
+        <TabsTrigger value={TabOptions.specification} className="h-10 text-md">
           Specifications
         </TabsTrigger>
-        <TabsTrigger value={TabOptions.specificationLimit}>
+        <TabsTrigger
+          value={TabOptions.specificationLimit}
+          className="h-10 text-md"
+        >
           Specification Limits
         </TabsTrigger>
       </TabsList>

@@ -3,7 +3,7 @@
 import prisma from "@/prisma/db";
 import { Prisma } from "@prisma/client";
 
-type CustomTestType = Prisma.TestGetPayload<{
+export type CustomTestType = Prisma.TestGetPayload<{
   include: { masterTest: true };
 }> & {
   description: string | null;
