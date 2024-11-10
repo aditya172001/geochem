@@ -5,23 +5,29 @@ import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { useRecoilState } from "recoil";
 import { partiesWithBranchesState } from "@/src/store/atoms";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllPartiesWithBranches } from "./actions";
+import { LoadingMasterTable } from "../loading-master-table";
 
 export default function PartyCard() {
   const [data, setData] = useRecoilState(partiesWithBranchesState);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchData() {
       setData(await getAllPartiesWithBranches());
     }
     fetchData();
+    setIsLoading(false);
   }, [setData]);
 
   return (
     <Card>
-      <CardContent className="mt-6">
-        <DataTable columns={columns} data={data} />
-      </CardContent>
+      {isLoading && <LoadingMasterTable />}
+      {!isLoading && (
+        <CardContent>
+          <DataTable columns={columns} data={data} />
+        </CardContent>
+      )}
     </Card>
   );
 }

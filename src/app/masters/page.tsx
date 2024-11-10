@@ -5,6 +5,7 @@ import SpecificationTab from "@/src/components/custom/masters/specifications/spe
 import TestTab from "@/src/components/custom/masters/tests-master/tests-tab";
 import SpecLimitTab from "@/src/components/custom/masters/spec-limit/spec-limit-tab";
 import { Suspense } from "react";
+import { LoadingIcon } from "@/src/components/custom/extras/loading-icon";
 
 enum TabOptions {
   sample = "sample",
@@ -13,13 +14,13 @@ enum TabOptions {
   specificationLimit = "specificationLimit",
 }
 
-export default function MastersPage() {
+export default async function MastersPage() {
   return (
     <div className="flex flex-col h-[125vh]">
       <main className="flex-grow py-12 px-4 md:px-6">
         <div className="container mx-auto">
           <h1 className="text-3xl font-bold mb-6">Masters</h1>
-          <Suspense>
+          <Suspense fallback={<LoadingIcon className="animate-spin" />}>
             <SelectMasterPageTab>
               <TabsContent value={TabOptions.sample}>
                 <SampleTab />

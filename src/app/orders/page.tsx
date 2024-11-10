@@ -5,6 +5,7 @@ import UpdateTestResultTab from "@/src/components/custom/orders/update-test-resu
 import GetReportTab from "@/src/components/custom/orders/get-report/get-report-tab";
 import { SelectOrderPageTab } from "@/src/components/custom/orders/select-order-page-tab";
 import { Suspense } from "react";
+import { LoadingIcon } from "@/src/components/custom/extras/loading-icon";
 
 enum TabOptions {
   preEntry = "preEntry",
@@ -19,7 +20,7 @@ export default function OrdersPage() {
       <main className="flex-1 py-12 px-4 md:px-6">
         <div className="container mx-auto">
           <h1 className="text-3xl font-bold mb-6">Orders</h1>
-          <Suspense>
+          <Suspense fallback={<LoadingIcon className=" animate-spin" />}>
             <SelectOrderPageTab>
               <TabsContent value={TabOptions.preEntry}>
                 <NewPackageEntryTab />

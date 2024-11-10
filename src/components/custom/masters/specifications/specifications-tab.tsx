@@ -11,16 +11,19 @@ import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { masterSpecificationsState } from "@/src/store/atoms";
 import { useRecoilState } from "recoil";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllSpecifications } from "./actions";
+import { LoadingMasterTable } from "../../loading-master-table";
 
 export default function SpecificationTab() {
   const [data, setData] = useRecoilState(masterSpecificationsState);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchData() {
       setData(await getAllSpecifications());
     }
     fetchData();
+    setIsLoading(false);
   }, [setData]);
 
   return (
@@ -29,9 +32,12 @@ export default function SpecificationTab() {
         <CardTitle>Specification</CardTitle>
         <CardDescription>Maintain specification master</CardDescription>
       </CardHeader>
-      <CardContent>
-        <DataTable columns={columns} data={data} />
-      </CardContent>
+      {isLoading && <LoadingMasterTable />}
+      {!isLoading && (
+        <CardContent>
+          <DataTable columns={columns} data={data} />
+        </CardContent>
+      )}
     </Card>
   );
 }

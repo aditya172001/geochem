@@ -11,16 +11,19 @@ import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { useRecoilState } from "recoil";
 import { masterTestsState } from "@/src/store/atoms";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllTests } from "./actions";
+import { LoadingMasterTable } from "../../loading-master-table";
 
 export default function TestTab() {
   const [data, setData] = useRecoilState(masterTestsState);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchData() {
       setData(await getAllTests());
     }
     fetchData();
+    setIsLoading(false);
   }, [setData]);
 
   return (
@@ -29,9 +32,12 @@ export default function TestTab() {
         <CardTitle>Test</CardTitle>
         <CardDescription>Maintain test master</CardDescription>
       </CardHeader>
-      <CardContent>
-        <DataTable columns={columns} data={data} />
-      </CardContent>
+      {isLoading && <LoadingMasterTable />}
+      {!isLoading && (
+        <CardContent>
+          <DataTable columns={columns} data={data} />
+        </CardContent>
+      )}
     </Card>
   );
 }
